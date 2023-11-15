@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import { parse } from 'node-html-parser';
 import StegCloak from 'stegcloak';
 import WebSocket from 'ws';
+import { encode } from './network/blueboat.js';
 
 /** Creates a new GimkitRoom object that allows you to spawn bots */
 export default class GimkitRoom {
@@ -70,6 +71,34 @@ export default class GimkitRoom {
             method: "POST"
         });
         let join = await joinRes.json();
+
+        if(join.source == 'original') {
+            // we are connecting using blueboat
+            const wsUrl = `wss${join.serverUrl.substr(5)}/blueboat/?id=&EIO=3&transport=websocket`
+            let ws = new WebSocket(wsUrl);
+
+            ws.on('open', () => {
+                // send a join packet
+                let packet = encode({
+                    roomId: join.roomId,
+                    options: { intent: join.intentId }
+                })
+
+                ws.send(packet);
+
+                // periodically send a heartbeat packet
+                let heartbeat = setInterval(() => {
+                    ws.send('2');
+                }, 25000);
+
+                // stop the heartbeat when the connection closes
+                ws.on('close', () => {
+                    clearInterval(heartbeat);
+                })
+            })
+
+            return ws;
+        }
         
         const joinIdUrl = `${join.serverUrl}/matchmake/joinById/${join.roomId}`;
         

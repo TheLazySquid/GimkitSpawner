@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimkit-flooder.js/), since that one no longer works. This provides an easy way to spawn bots (that do nothing) into a Gimkit game.
+This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimkit-flooder.js/), since that one no longer works. This provides an easy way to spawn bots (that do nothing) into a Gimkit game. This will automatically handle any neccesary handshake and keepalive packets, so there is no need to worry about either.
 
 ### Quickstart
 
@@ -13,12 +13,11 @@ This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimki
 5. Run `npm install`
 6. Create a new file named `spawn.js`
 7. Add the following code in `spawn.js`:
-8. Run `node spawn.js`
 
 ```js
 import GimkitRoom from "./index.js";
 
-const room = new GimkitRoom("618366");
+const room = new GimkitRoom("[your room code here]");
 
 for(let i = 0; i < 100; i++) {
 	let ws = await room.spawn(`Bot ${i}`);
@@ -27,6 +26,8 @@ for(let i = 0; i < 100; i++) {
 	})
 }
 ```
+
+8. Run `node spawn.js`
 
 ### API
 

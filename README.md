@@ -13,6 +13,7 @@ This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimki
 5. Run `npm install`
 6. Create a new file named `spawn.js`
 7. Add the following code in `spawn.js`:
+8. Run `node spawn.js`
 
 ```js
 import GimkitRoom from "./index.js";
@@ -29,7 +30,7 @@ for(let i = 0; i < 100; i++) {
 
 ### API
 
-This has an an extremely simple API. Importing './index.js' gives you the class `GimkitRoom`, which takes the room code in its constructor. The class has one method, `spawn`, which takes the name of the bot as a parameter. It returns a promise that resolves to the WebSocket connection to the bot. The bot will automatically join the game.
+This has an an extremely simple API. Importing './index.js' gives you the class `GimkitRoom`, which takes the room code in its constructor. The class has one method, `spawn`, which takes the name of the bot as a parameter. It returns a promise that resolves to the WebSocket connection to the bot. The bot will automatically join the game. To have the bot leave the game, simply close the WebSocket connection with `ws.close()`.
 
 ### How does it work?
 

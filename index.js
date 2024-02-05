@@ -62,6 +62,8 @@ export default class GimkitRoom {
         let joinRes = await fetch("https://www.gimkit.com/api/matchmaker/join", {
             headers: {
                 'Content-Type': 'application/json',
+                'Origin': 'https://www.gimkit.com',
+                'Referer': 'https://www.gimkit.com/join'
             },
             body: JSON.stringify({
                 clientType: clientType,

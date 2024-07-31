@@ -109,12 +109,3 @@ export function encode(e) {
         return new Uint8Array(y).buffer 
     }(o)
 }
-
-// let encoded = encode({
-//     roomId: '6gFW7EcU0ymgRa',
-//     options: { intent: '6555307b41c55c002db47a8e' }
-// })
-// // convert to string
-// let string = String.fromCharCode.apply(null, new Uint8Array(encoded))
-// console.log(string)
-// console.log(string.length)

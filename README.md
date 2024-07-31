@@ -2,7 +2,7 @@
 
 ### What is this?
 
-This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimkit-flooder.js/), since that one no longer works. This provides an easy way to spawn bots (that do nothing) into a Gimkit game. This will automatically handle any neccesary handshake and keepalive packets, so there is no need to worry about either.
+This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimkit-flooder.js/), since that one no longer works. This provides an easy way to spawn bots (that do nothing) into a Gimkit game. This will automatically handle any neccesary handshake and keepalive packets, so there is no need to worry about either. Please don't use this to ruin other people's games- this is intened to be an easy way to populate a server without the overhead of a bunch of browser tabs.
 
 ### Quickstart
 
@@ -11,27 +11,11 @@ This is an updated version of [Gimkit Flooder](https://github.com/seanv999/gimki
 3. Open a terminal and run `git clone https://github.com/TheLazySquid/GimkitSpawner.git`
 4. Run `cd GimkitSpawner`
 5. Run `npm install`
-6. Create a new file named `spawn.js`
-7. Add the following code in `spawn.js`:
-
-```js
-import GimkitRoom from "./index.js";
-
-const room = new GimkitRoom("[your room code here]");
-
-for(let i = 0; i < 100; i++) {
-	let ws = await room.spawn(`Bot ${i}`);
-	ws.on('open', () => {
-		console.log(`Bot ${i} has loaded in!`);
-	})
-}
-```
-
-8. Run `node spawn.js`
+6. Run `node cli.js <room code> [number of bots] [bot name]`, ex. `node cli.js 123456 10 bot` or just `node cli.js 123456` for five bots named 'bot'
 
 ### API
 
-This has an an extremely simple API. Importing './index.js' gives you the class `GimkitRoom`, which takes the room code in its constructor. The class has one method, `spawn`, which takes the name of the bot as a parameter. It returns a promise that resolves to the WebSocket connection to the bot. The bot will automatically join the game. To have the bot leave the game, simply close the WebSocket connection with `ws.close()`.
+This has an an extremely simple API. Importing './index.js' gives you the class `GimkitRoom`, which takes the room code in its constructor. The class has one method, `spawn`, which takes the name of the bot as a parameter. It returns a promise that resolves to the WebSocket connection to the bot, or throws an error if the game is full. The bot will automatically join the game. To have the bot leave the game, simply close the WebSocket connection with `ws.close()`.
 
 ### How does it work?
 
